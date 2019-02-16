@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Star War RPG</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<style>
+		.image {
+			min-width: 150px;
+			height: auto;
+			float: left;
+			padding: 2px;
+			background: white;
+			border: 5px solid green;
+			margin: 5px;
+		}
+
+		.char {
+			width: 100%;
+		}
+
+		.val {
+			text-align: center;
+			margin: 0;
+			font-size: auto;
+
+		}
+
+		.select {
+			width: 100%;
+		}
+
+		.yourchar {
+			display: flex;
+		}
+
+		.allchar {
+			margin: 0;
+
+		}
+	</style>
+</head>
+
+<body>
+
+	<h1>Star Wars RPG!</h1>
+
+	<div class="container">
+		<div class="row select allchar">
+
+			<!--character sellection-->
+			<div class="col-2 image character" id="obi">
+				<p class="val char-name"></p>
+				<img class="char" id="image1" alt="Obi-Wan Kenobi" src="guess.png">
+				<p class="val char-health"></p>
+			</div>
+
+			<div class="col-2 image character" id="luke">
+				<p class="val char-name"></p>
+				<img class="char" id="image1" alt="Luke Skywalker" src="guess.png">
+				<p class="val char-health"></p>
+			</div>
+
+			<div class="col-2 image character" id="darthS">
+				<p class="val char-name"></p>
+				<img class="char" id="image1" alt="Darth Sidious" src="guess.png">
+				<p class="val char-health"></p>
+			</div>
+
+			<div class="col-2 image character" id="darthM">
+				<p class="val char-name"></p>
+				<img class="char" id="image1" alt="Darth Maul" src="guess.png">
+				<p class="val char-health"></p>
+			</div>
+
+		</div>
+
+		<!--Your character box-->
+		<h3 class="row select">Your Character</h3>
+		<div id="charbox" class="row select"></div>
+
+		<!--Enemies box-->
+		<h3 class="row select">Enemies available to attack</h3>
+		<div id="enembox" class="row select"></div>
+
+		<h3 class="row select">Fight Section</h3>
+		<div class="row select">
+			<button class="btn bg-info" type="button">Fight!</button>
+		</div>
+		<!--Defender box-->
+		<h3 class="row select">Defender</h3>
+		<div id="defender" class="row select"></div>
+		<!-- display message about the fight -->
+		<div class="message1"></div>
+		<div class="message2"></div>
+
+
+	</div>
+
+	<script>
+		$(document).ready(function () {
+			var selectChar;
+			var selectDefender;
+			var isCharSelect = false;
+			var isDefenderSelect = false;
+
+			var allChar = {
+				"obi": {
+					name: "Obi-Wan Kenobi",
+					health: 120,
+					attack: 8,
+					counterattack: 15
+				},
+				"luke": {
+					name: "Luke Skywalker",
+					health: 100,
+					attack: 11,
+					counterattack: 5
+				},
+				"darthS": {
+					name: "Darth Sidious",
+					health: 150,
+					attack: 10,
+					counterattack: 20
+				},
+				"darthM": {
+					name: "Darth Maul",
+					health: 180,
+					attack: 8,
+					counterattack: 25
+				}
+			};
+			/////////////////////////////////////
+			//adding atributte to character
+			function addAtributte() {
+				$("#obi .char-name").text(allChar.obi.name);
+				$("#luke .char-name").text(allChar.luke.name);
+				$("#darthS .char-name").text(allChar.darthS.name);
+				$("#darthM .char-name").text(allChar.darthM.name);
+
+				$("#obi .char-health").text(allChar.obi.health);
+				$("#luke .char-health").text(allChar.luke.health);
+				$("#darthS .char-health").text(allChar.darthS.health);
+				$("#darthM .char-health").text(allChar.darthM.health);
+
+				//test
+				//var x = Object.values(allChar)[0]
+				//console.log(x)
+				//console.log(Object.values(x)[0])
+			}
+			addAtributte();
+			//////////////////////////////////////
+			// function select() will pick your character and move the rest as your enemies
+			function select() {
+				$(".character").on("click", function () {
+					//if (isCharSelect === false && isDefenderSelect === false){
+					$("#charbox").prepend($(this));
+					//console.log(this);
+					$("#enembox").prepend($(".allchar"));
+					$(".allchar .image").attr("style", "background:red");
+					$(".allchar .image").attr("class", "col-2 image character enem");
+					isCharSelect = true;
+
+					$(".character").off("click");
+					console.log("Is My Charater select yet? " + isCharSelect)
+					selectChar = $(this).attr("id");
+					//console.log("My character is " + selectChar)
+					//}
+					getCharAtr();
+					charOriginalAtt = charAtt;
+					enemies();
+				})
+				//END select()
+			};
+
+			//////////////////////////////////
+			//function to select defender
+			function enemies() {
+				$(".enem").on("click", function () {
+					//if (isCharSelect === true && isDefenderSelect === false ){
+					$("#defender").html($(this));
+					$(this).attr("class", "col-2 image character enem def");
+					$(".def").attr("style", "background:black; color:white");
+					isDefenderSelect = true;
+					$(".enem").off("click");
+					//}
+					console.log("Is Defender there? " + isDefenderSelect);
+					selectDefender = $(this).attr("id");
+					//console.log("My character is " + selectDefender)
+					console.log("My char original attack is " + charOriginalAtt);
+					getDefAtr();
+					fight();
+				})
+				//END enemies()
+			};
+
+			select();
+
+			////////////////////////////////////////////////////
+			var attackCounter = 0;
+			var charHealth;
+			var defHealth;
+			var charAtt;
+			var charOriginalAtt;
+			var defAtt;
+			var charCounterAtt;
+			var defCounterAtt;
+			//var charCurrentHealth;
+			var charName;
+			var defName;
+			function getCharAtr() {
+				for (var i = 0; i < Object.keys(allChar).length; i++) {
+					if (selectChar === Object.keys(allChar)[i]) {
+						var x = Object.values(allChar)[i];
+						//charCurrentHealth=charHealth;
+						charName = Object.values(x)[0];
+						charHealth = Object.values(x)[1];
+						charAtt = Object.values(x)[2];
+						charCounterAtt = Object.values(x)[3];
+						console.log("Character is: " + charName);
+						console.log("Character HP is: " + charHealth);
+						console.log("Character attack is: " + charAtt);
+						console.log("Character counter attack is: " + charCounterAtt);
+					}
+				}
+			};
+			function getDefAtr() {
+				for (var i = 0; i < Object.keys(allChar).length; i++) {
+					if (selectDefender === Object.keys(allChar)[i]) {
+						var x = Object.values(allChar)[i];
+						defName = Object.values(x)[0];
+						defHealth = Object.values(x)[1];
+						defAtt = Object.values(x)[2];
+						defCounterAtt = Object.values(x)[3];
+						console.log("Defender is: " + defName);
+						console.log("Defender HP is: " + defHealth);
+						console.log("Defender attack is: " + defAtt);
+						console.log("Defender counter attack is: " + defCounterAtt);
+					}
+				}
+			};
+
+			function fight() {
+				$(".btn").on("click", function () {
+					attackCounter++;
+					charAtt = charOriginalAtt * attackCounter;
+					charHealth = charHealth - defCounterAtt;
+					defHealth = defHealth - charAtt;
+					console.log("Time character attack is " + attackCounter);
+					console.log("Character attack is: " + charAtt);
+					console.log("Character health is: " + charHealth);
+					console.log("Defender health is: " + defHealth);
+					$(".message1").text("You attack " + defName + " with " + charAtt + ".");
+					$(".message2").text(defName + " attack you back for " + defCounterAtt +" damage." );
+										
+					ifDefDie();
+					ifCharDie()
+				})
+			};
+
+
+			function ifDefDie() {
+				if (defHealth <= 0) {
+					enemies()
+					$(".def").hide();
+					$(".btn").off("click");
+				}
+			};
+
+			function ifCharDie() {
+				if (charHealth <= 0) {
+					$(".message1").text("YOU DIE!!!");
+					$(".message2").text("GAME OVER!!!");
+					$(".btn").off("click");
+				}
+			};
+
+			function outOfDef(){
+
+			};
+			//END
+		});
+
+	</script>
+</body>
+
+</html>

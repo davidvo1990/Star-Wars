@@ -48,6 +48,7 @@
 	<h1>Star Wars RPG!</h1>
 
 	<div class="container">
+		<!-- <div class="characters"></div> -->
 		<div class="row select allchar">
 
 			<!--character sellection-->
@@ -87,7 +88,7 @@
 
 		<h3 class="row select">Fight Section</h3>
 		<div class="row select">
-			<button class="btn bg-info" type="button">Fight!</button>
+			<button class="btn bg-info fight" type="button">Fight!</button>
 		</div>
 		<!--Defender box-->
 		<h3 class="row select">Defender</h3>
@@ -135,15 +136,15 @@
 			/////////////////////////////////////
 			//adding atributte to character
 			function addAtributte() {
-				$("#obi .char-name").text(allChar.obi.name);
-				$("#luke .char-name").text(allChar.luke.name);
-				$("#darthS .char-name").text(allChar.darthS.name);
-				$("#darthM .char-name").text(allChar.darthM.name);
+				$("#obi .char-name").html(allChar.obi.name);
+				$("#luke .char-name").html(allChar.luke.name);
+				$("#darthS .char-name").html(allChar.darthS.name);
+				$("#darthM .char-name").html(allChar.darthM.name);
 
-				$("#obi .char-health").text(allChar.obi.health);
-				$("#luke .char-health").text(allChar.luke.health);
-				$("#darthS .char-health").text(allChar.darthS.health);
-				$("#darthM .char-health").text(allChar.darthM.health);
+				$("#obi .char-health").html(allChar.obi.health);
+				$("#luke .char-health").html(allChar.luke.health);
+				$("#darthS .char-health").html(allChar.darthS.health);
+				$("#darthM .char-health").html(allChar.darthM.health);
 
 				//test
 				//var x = Object.values(allChar)[0]
@@ -210,15 +211,19 @@
 			//var charCurrentHealth;
 			var charName;
 			var defName;
+			var charKey;
+			var defKey;
 			function getCharAtr() {
 				for (var i = 0; i < Object.keys(allChar).length; i++) {
 					if (selectChar === Object.keys(allChar)[i]) {
 						var x = Object.values(allChar)[i];
 						//charCurrentHealth=charHealth;
+						charKey = Object.keys(allChar)[i];
 						charName = Object.values(x)[0];
 						charHealth = Object.values(x)[1];
 						charAtt = Object.values(x)[2];
 						charCounterAtt = Object.values(x)[3];
+						console.log("Object character key is : " + charKey);
 						console.log("Character is: " + charName);
 						console.log("Character HP is: " + charHealth);
 						console.log("Character attack is: " + charAtt);
@@ -230,10 +235,12 @@
 				for (var i = 0; i < Object.keys(allChar).length; i++) {
 					if (selectDefender === Object.keys(allChar)[i]) {
 						var x = Object.values(allChar)[i];
+						defKey = Object.keys(allChar)[i];
 						defName = Object.values(x)[0];
 						defHealth = Object.values(x)[1];
 						defAtt = Object.values(x)[2];
 						defCounterAtt = Object.values(x)[3];
+						console.log("Object defender key is : " + defKey);
 						console.log("Defender is: " + defName);
 						console.log("Defender HP is: " + defHealth);
 						console.log("Defender attack is: " + defAtt);
@@ -243,7 +250,7 @@
 			};
 
 			function fight() {
-				$(".btn").on("click", function () {
+				$(".fight").on("click", function () {
 					attackCounter++;
 					charAtt = charOriginalAtt * attackCounter;
 					charHealth = charHealth - defCounterAtt;
@@ -252,34 +259,57 @@
 					console.log("Character attack is: " + charAtt);
 					console.log("Character health is: " + charHealth);
 					console.log("Defender health is: " + defHealth);
-					$(".message1").text("You attack " + defName + " with " + charAtt + ".");
-					$(".message2").text(defName + " attack you back for " + defCounterAtt +" damage." );
-										
+					$(".message1").html("You attack " + defName + " with " + charAtt + ".");
+					$(".message2").html(defName + " attack you back for " + defCounterAtt + " damage.");
+
+					$("#" + charKey + " .char-health").html(charHealth);
+					$("#" + defKey + " .char-health").html(defHealth);
+
+
+
 					ifDefDie();
 					ifCharDie()
 				})
 			};
 
-
+			var countDef = 3;
 			function ifDefDie() {
 				if (defHealth <= 0) {
 					enemies()
 					$(".def").hide();
 					$(".btn").off("click");
+					countDef--;
 				}
+				outOfDef();
 			};
 
 			function ifCharDie() {
 				if (charHealth <= 0) {
-					$(".message1").text("YOU DIE!!!");
-					$(".message2").text("GAME OVER!!!");
+					$(".message1").html("<h1>YOU DIE! GAME OVER!!!</h1>");
+					$(".message2").html("<button type='button' id='reset'>Reset</button>");
 					$(".btn").off("click");
+					reset();
 				}
 			};
 
-			function outOfDef(){
-
+			function outOfDef() {
+				if (countDef === 0) {
+					$(".message1").html("<h1>YOU WIN! GAME END!!!</h1>");
+					$(".message2").html("<button class  type='button' id='reset'>Reset</button>");
+					reset();
+				}
 			};
+
+			function reset(){
+				$("#reset").on("click", function(){
+					countDef = 3;
+					// $(".image").html(".allchar");
+					$(".enem").show();
+					$(".allchar").append($(".def"))
+				})
+			};
+
+
 			//END
 		});
 

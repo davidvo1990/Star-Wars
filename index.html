@@ -3,13 +3,14 @@
 
 <head>
   <meta charset="UTF-8">
-  <title></title>
+  <title>Star Wars RPG!</title>
 
   <!-- Link to the jQuery Library -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
   <!-- Bootstrap -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+    integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
   <!-- AND/OR YOUR OWN CSS -->
   <link rel="stylesheet" href="assets/css/reset.css">
@@ -19,6 +20,63 @@
 </head>
 
 <body>
+
+  <h1 class="header">Star Wars RPG!</h1>
+
+  <div class="container">
+
+    <div class="row select allchar">
+
+      <!--Character sellection-->
+      <div class="col-2 image character" id="obi">
+        <p class="val char-name"></p>
+        <img class="char" id="image1" alt="Obi-Wan Kenobi" src="assets/images/obi-wan-kenobi.jpg">
+        <p class="val char-health"></p>
+      </div>
+
+      <div class="col-2 image character" id="luke">
+        <p class="val char-name"></p>
+        <img class="char" id="image1" alt="Luke Skywalker" src="assets/images/luke.jpg">
+        <p class="val char-health"></p>
+      </div>
+
+      <div class="col-2 image character" id="darthS">
+        <p class="val char-name"></p>
+        <img class="char" id="image1" alt="Darth Sidious" src="assets/images/darthsidious.jpg">
+        <p class="val char-health"></p>
+      </div>
+
+      <div class="col-2 image character" id="darthM">
+        <p class="val char-name"></p>
+        <img class="char" id="image1" alt="Darth Maul" src="assets/images/DarthMaul.jpg">
+        <p class="val char-health"></p>
+      </div>
+
+    </div>
+
+    <!--Your character box-->
+    <h3 class="row select">Your Character</h3>
+    <div id="charbox" class="row select"></div>
+
+    <!--Enemies box-->
+    <h3 class="row select">Enemies available to attack</h3>
+    <div id="enembox" class="row select"></div>
+
+    <h3 class="row select">Fight Section</h3>
+    <div class="row select">
+      <button class="btn fight" type="button">Fight!</button>
+    </div>
+    <!--Defender box-->
+    <h3 class="row select">Defender</h3>
+    <div id="defender" class="row select"></div>
+    <!-- Display message about the fight -->
+    <div class="message1"></div>
+    <div class="message2"></div>
+
+
+  </div>
+
+
 
   <!-- Link to your JavaScript -->
   <script type="text/javascript" src="assets/javascript/game.js"></script>

@@ -160,8 +160,11 @@ $(document).ready(function () {
         $(".fight").on("click", function () {
             attackCounter++;
             charAtt = charOriginalAtt * attackCounter;
-            charHealth = charHealth - defCounterAtt;
             defHealth = defHealth - charAtt;
+            //this will not let defender have extra hit before dead
+            if (defHealth > 0) {
+                charHealth = charHealth - defCounterAtt;
+            }
             console.log("Time character attack is " + attackCounter);
             console.log("Character attack is: " + charAtt);
             console.log("Character health is: " + charHealth);
@@ -196,7 +199,7 @@ $(document).ready(function () {
     // if character health reach 0 then loss
     function ifCharDie() {
         if (charHealth <= 0) {
-            $(".message1").html("<h1>YOU DIE! GAME OVER!!!</h1>");
+            $(".message1").html("<h1 class='header'>YOU DIE! GAME OVER!!!</h1>");
             $(".message2").html("<button class='btn' type='button' id='reset'>Reset</button>");
             $(".btn").off("click");
             //prevent character health show negative number
@@ -209,7 +212,7 @@ $(document).ready(function () {
     // if run out of defender then you loss
     function outOfDef() {
         if (countDef === 0) {
-            $(".message1").html("<h1>YOU WIN! GAME END!!!</h1>");
+            $(".message1").html("<h1 class='header'>YOU WIN! GAME END!!!</h1>");
             $(".message2").html("<button class='btn'  type='button' id='reset'>Reset</button>");
             console.log("--------------------------");
             reset();

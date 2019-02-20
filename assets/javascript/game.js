@@ -54,8 +54,10 @@ $(document).ready(function () {
     function select() {
         $(".character").on("click", function () {
             //if (isCharSelect === false && isDefenderSelect === false){
+                // prepend click image to character box
             $("#charbox").prepend($(this));
             //console.log(this);
+            // then prepend the rest to enemies box
             $("#enembox").prepend($(".allchar"));
             //$(".allchar .image").attr("style", "background:red");
             $(".allchar .image").attr("class", "col-2 image character enem");
@@ -155,7 +157,7 @@ $(document).ready(function () {
         }
         // END getDefAtr()
     };
-    // fight button 
+    // fight button, do thing when click the button as well print out message
     function fight() {
         $(".fight").on("click", function () {
             attackCounter++;
@@ -181,7 +183,7 @@ $(document).ready(function () {
         // END fight()
     };
 
-    //decrease defender count each time one die, defaul = 3
+    //decrease defender count each time one die, default = 3
     var countDef = 3;
     function ifDefDie() {
         if (defHealth <= 0) {
@@ -283,7 +285,7 @@ $(document).ready(function () {
         $(".val").attr("style", "color:cyan");
     }, 7000);
 
-
+// sound for fun
     var audio = new Audio("assets/music/Star Wars Theme  John Williams.mp3");
     setInterval(function () {
     audio.play();

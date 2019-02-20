@@ -251,32 +251,32 @@ $(document).ready(function () {
         $(".header").attr("style", "color:red");
         $(".btn").attr("style", "background:rgb(85, 22, 233)");
         $(".val").attr("style", "color:green");
-    }, 1000);
+    }, 2000);
     setInterval(function () {
         $(".header").attr("style", "color:yellow");
         $(".btn").attr("style", "background:rgb(18, 219, 219)");
         $(".val").attr("style", "color:brown");
-    }, 2000);
+    }, 3000);
     setInterval(function () {
         $(".header").attr("style", "color:blue");
         $(".btn").attr("style", "background:rgb(213, 18, 219)");
         $(".val").attr("style", "color:purple");
-    }, 3000);
+    }, 5000);
     setInterval(function () {
         $(".header").attr("style", "color:rgb(9, 245, 40)");
         $(".btn").attr("style", "background:black");
         $(".val").attr("style", "color:blue");
-    }, 4000);
+    }, 7000);
     setInterval(function () {
         $(".header").attr("style", "color:rgb(213, 18, 219)");
         $(".btn").attr("style", "background:blue");
         $(".val").attr("style", "color:orange");
-    }, 5000)
+    }, 11000)
     setInterval(function () {
         $(".header").attr("style", "color:rgb(18, 219, 219)");
         $(".btn").attr("style", "background:yellow");
         $(".val").attr("style", "color:violet");
-    }, 6000);
+    }, 17000);
     setInterval(function () {
         $(".header").attr("style", "color:rgb(85, 22, 233)");
         $(".btn").attr("style", "background:red");
@@ -285,7 +285,8 @@ $(document).ready(function () {
 
 
     var audio = new Audio("assets/music/Star Wars Theme  John Williams.mp3");
+    setInterval(function () {
     audio.play();
-
+    },1000);
     //END
 });
